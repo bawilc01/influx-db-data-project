@@ -13,19 +13,23 @@ token = INFLUX_TOKEN
 org = INFLUX_ORG
 bucket = INFLUX_BUCKET
 
-query = 'from(bucket: "my-bucket")\
+query = f'from(bucket: {bucket})\
 |> range(start: -10m)\
 |> filter(fn: (r) => r._measurement == "h2o_level")\
 |> filter(fn: (r) => r._field == "water_level")\
 |> filter(fn: (r) => r.location == "coyote_creek")'
+
 #establish a connection
-client = InfluxDBClient(url="http://localhost:9999", token=token, org=org)
+client = InfluxDBClient(url=url, token=token, org=org)
+
 #instantiate the WriteAPI and QueryAPI
 write_api = client.write_api()
 query_api = client.query_api()
+
 #create and write the point
 p = Point("h2o_level").tag("location", "coyote_creek").field("water_level", 1)
-write_api.write(bucket=bucket,org=org,record=p)
+write_api.write(bucket=bucket, org=org, record=p)
+
 #return the table and print the result
 result = client.query_api().query(org=org, query=query)
 results = []
