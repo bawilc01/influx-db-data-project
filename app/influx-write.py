@@ -3,6 +3,7 @@ from pathlib import Path
 
 dotenv_path = Path('path/to/.env')
 load_dotenv(dotenv_path=dotenv_path)
+
 from datetime import datetime
 
 from influxdb_client import WritePrecision, InfluxDBClient, Point

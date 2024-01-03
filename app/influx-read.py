@@ -1,14 +1,17 @@
-from dotenv import load_dotenv
-from pathlib import Path
-
-dotenv_path = Path('path/to/.env')
-load_dotenv(dotenv_path=dotenv_path)
 from influxdb_client import InfluxDBClient
+import os
+from dotenv import load_dotenv
 
-url = 'https://us-west-2-1.aws.cloud2.influxdata.com'
-token = 'my-token'
-org = 'my-org'
-bucket = 'my-bucket'
+INFLUX_TOKEN = os.getenv('INFLUX_TOKEN')
+INFLUX_ORG = os.getenv('INFLUX_ORG')
+INFLUX_BUCKET = os.getenv('INFLUX_BUCKET')
+INFLUX_URL = os.getenv('INFLUX_URL')
+load_dotenv()
+
+url = INFLUX_URL
+token = INFLUX_TOKEN
+org = INFLUX_ORG
+bucket = INFLUX_BUCKET
 
 with InfluxDBClient(url=url, token=token, org=org) as client:
     query_api = client.query_api()
