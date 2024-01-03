@@ -1,4 +1,8 @@
+from dotenv import load_dotenv
+from pathlib import Path
 
+dotenv_path = Path('path/to/.env')
+load_dotenv(dotenv_path=dotenv_path)
 from influxdb_client import InfluxDBClient
 
 url = 'https://us-west-2-1.aws.cloud2.influxdata.com'
