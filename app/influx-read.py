@@ -22,3 +22,4 @@ with InfluxDBClient(url=url, token=token, org=org) as client:
         for record in table.records:
             print(str(record["_time"]) + " - " + record.get_measurement()
                   + " " + record.get_field() + "=" + str(record.get_value()))
+
